@@ -1,0 +1,37 @@
+.button{
+    width: 140px;
+    height: 44px;
+    border-radius: 20px;
+    border: 1px solid greenyellow;
+    background-color: #1877F2;
+    color: white;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.button:hover{
+    border: 1px solid black;
+    color: black;
+    background-color: greenyellow;
+}
+
+/* .button:active{
+    background-color: var(--color-deepsky-blue);
+    border: 1px solid var(--color-deepsky-blue);
+}
+
+button:disabled{
+    background-color: var(--color-black);
+    border: 1px solid var(--color-grey);
+    color: var(--color-grey);
+}
+
+button:disabled:hover{
+    border: 1px solid var(--color-black);
+} */

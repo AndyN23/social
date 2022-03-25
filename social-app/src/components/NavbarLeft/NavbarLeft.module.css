@@ -1,0 +1,6 @@
+.navLeft{
+    background-color: rgba(230, 230, 230, 0.6);
+    border-radius: 40px;
+    grid-area: navLeft;
+    padding: 40px 0;
+}

@@ -1,0 +1,60 @@
+.post{
+    /* max-height: 400px; */
+    background-color: bisque;
+    border-color: 2px solid gray;
+    margin: 50px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 20px;
+}
+
+.postTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.postTop img{
+    width: 40px;
+    height: 40px;
+    border-radius:100px;
+}
+
+.postTop button{
+    background-color: transparent;
+    border: none;
+    color: grey;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.postContent img{
+    width: 85%;
+}
+
+.postBottom{
+    height: 50px;
+    width: 85%;
+    margin: 0 auto;
+    padding: 10px 0px 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postBottom button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.postLikeBlock{
+    display: flex;
+    justify-content: space-between;
+    width: 50px;
+}
