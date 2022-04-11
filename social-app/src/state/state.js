@@ -1,6 +1,7 @@
 let renderEntireTree = () => {
-    console.log('pizdez!')
+    console.log('Aloha!')
 }
+
 
 let state = {
     messagePage: {
@@ -24,19 +25,39 @@ let state = {
             { id: 1, message: "It's my village",  likes: "38", dislikes: "2" },
             { id: 2, message: "My home", likes: "28", dislikes: "9" },
             { id: 3, message: "It's my village - home", likes: "48", dislikes: "12" }
-        ]
+        ],
+        newPostText: 'new text'
     }
 }
 
-export let addPost = (textPost) => {
+export const addPost = () => {
     let newPost = {
         id: 5,
-        message: textPost,
+        message: state.profilePage.newPostText,
         likes: 0,
         dislikes: 0
     }
-    state.profilePage.postsData.push(newPost);
-    renderEntireTree(state);
+    state.profilePage.postsData.push(newPost)
+    state.profilePage.newPostText = ''
+    renderEntireTree();
+}
+
+export const updateNewPostText = (newText) => {
+    state.profilePage.newPostText = newText;
+    renderEntireTree();
+}
+
+export const addMessage = (textMessage) => {
+    let newMessage = {
+        id: 4,
+        message: textMessage,
+    }
+    state.messagePage.messagesData.push(newMessage);
+    renderEntireTree();
+}
+
+export const subscribe = (observer) =>{
+    renderEntireTree = observer;
 }
 
 export default state;
