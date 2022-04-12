@@ -1,10 +1,9 @@
 // import reportWebVitals from './reportWebVitals';
-import state, {subscribe} from './state/state';
+import store from './state/state';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { addPost, addMessage, updateNewPostText} from './state/state';
 import { BrowserRouter } from 'react-router-dom';
 
 
@@ -12,17 +11,15 @@ let renderEntireTree = (state) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-              <App  
-                state={state} 
-                addPost={addPost}
-                updateNewPostText={updateNewPostText}
-                addMessage={addMessage}/>
+                <App  
+                    state={state} 
+                    dispatch={store.dispatch.bind(store)}/>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 } 
 
-renderEntireTree(state);
+renderEntireTree(store.getState());
 
-subscribe(renderEntireTree);
+store.subscribe(renderEntireTree);
