@@ -3,14 +3,19 @@ import s from './Dialogs.module.css';
 import Dialog from './Dialog/Dialog';
 import Message from './Message/Message';
 import UiButton from '../UI/UiButton/UiButton';
+import { updateMessageCreator, sendMessageCreator } from '../../state/state';
 
 const Dialogs = (props) => {
 
-    let newMessage = React.createRef();
+    // let newMessage = React.createRef();
 
     let addMessage = () => {
-        let message = newMessage.current.value;
-        props.addMessage(message);
+        props.dispatch(sendMessageCreator());
+    }
+
+    let onMessageChange = (e) => {
+        let text = e.target.value;
+        props.dispatch(updateMessageCreator(text));
     }
 
     let userItem = props.state.usersData.map( dialog => <Dialog name={dialog.name} id={dialog.id}/>);
@@ -24,7 +29,11 @@ const Dialogs = (props) => {
             </div>
             <div className={s.messages}>
                 {messageItem}
-                <textarea ref={newMessage}></textarea>
+                <textarea 
+                    onChange={onMessageChange}
+                    // ref={newMessage}
+                    value={props.state.newMessageText}
+                    placeholder="Enter you message..."/>
                 <UiButton onClick={addMessage}>Submit</UiButton>
             </div>
         </div>

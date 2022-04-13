@@ -2,18 +2,20 @@ import React from 'react';
 import s from './AllPosts.module.css'
 import UiButton from '../UI/UiButton/UiButton';
 import Post from './Post/Post'
+import { addPostActionCreator, updatePostActionCreator } from '../../state/state';
+
 
 const AllPosts = (props) => {
 
     let newpostElement = React.createRef();
 
     let addPost = () => {
-        props.dispatch({type:"ADD-POST"});
+        props.dispatch(addPostActionCreator());
     }
 
     let onPostChange=() => {
         let text = newpostElement.current.value;
-        props.dispatch({type: "UPDATE-POST" , newText: text});
+        props.dispatch(updatePostActionCreator(text));
     }
 
 

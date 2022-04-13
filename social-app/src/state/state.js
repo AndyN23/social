@@ -1,3 +1,8 @@
+const ADD_POST = "ADD-POST";
+const UPDATE_POST = "UPDATE-POST";
+const UPDATE_TEXT_MESSAGE= "UPDATE-MESSAGE";
+const SEND_MESSAGE = "SEND-MESSAGE";
+
 let store = {
     _state : {
         messagePage: {
@@ -15,6 +20,7 @@ let store = {
                 { id:4, text: "What happend?!"},
                 { id:5, text: "Call me!"},
             ],
+            newMessageText: '',
         },
         profilePage: {
             postsData : [
@@ -37,29 +43,40 @@ let store = {
     },
 
     dispatch(action){ //action {type: 'ADD-POST' , data}
-        if(action.type === "ADD-POST"){
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likes: 0,
-                dislikes: 0
-            }
-            this._state.profilePage.postsData.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this._state);
-        } else if (action.type === "UPDATE-POST"){
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === "TEXT-MESSAGE") {
-            let newMessage = {
-                id: 4,
-                message: action.textMessage,
-            }
-            this._state.messagePage.messagesData.push(newMessage);
-            this._callSubscriber(this._state);
+        if
+            (action.type === ADD_POST){
+                let newPost = {
+                    id: 5,
+                    message: this._state.profilePage.newPostText,
+                    likes: 0,
+                    dislikes: 0
+                }
+                this._state.profilePage.postsData.push(newPost)
+                this._state.profilePage.newPostText = ''
+                this._callSubscriber(this._state);
+        } else if 
+            (action.type === UPDATE_POST){
+                this._state.profilePage.newPostText = action.newText;
+                this._callSubscriber(this._state);
+        } else if 
+            (action.type === UPDATE_TEXT_MESSAGE) {
+                this._state.messagePage.newMessageText = action.body;
+                this._callSubscriber(this._state);
+        } else if 
+            (action.type === SEND_MESSAGE) {
+                let body = this._state.messagePage.newMessageText;
+                this._state.messagePage.newMessageText = '';
+                this._state.messagePage.messagesData.push({id: 6, text:body})
+                this._callSubscriber(this._state);
         }
     },
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const updatePostActionCreator = (text) => ({type: UPDATE_POST, newText: text})
+
+export const updateMessageCreator = (body) => ({type: UPDATE_TEXT_MESSAGE, body: body})
+export const sendMessageCreator = () => ({type: SEND_MESSAGE })
 
 export default store;
 window.store = store;
