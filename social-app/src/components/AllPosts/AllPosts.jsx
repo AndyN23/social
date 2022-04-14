@@ -2,20 +2,22 @@ import React from 'react';
 import s from './AllPosts.module.css'
 import UiButton from '../UI/UiButton/UiButton';
 import Post from './Post/Post'
-import { addPostActionCreator, updatePostActionCreator } from '../../state/state';
+import { addPostActionCreator, updatePostActionCreator } from '../../redux/profileReducer';
 
 
 const AllPosts = (props) => {
 
     let newpostElement = React.createRef();
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+        props.addPost();
+        // props.dispatch(addPostActionCreator());
     }
 
     let onPostChange=() => {
         let text = newpostElement.current.value;
-        props.dispatch(updatePostActionCreator(text));
+        props.updateNewPostText(text);
+        // props.dispatch(updatePostActionCreator(text));
     }
 
 
@@ -29,8 +31,9 @@ const AllPosts = (props) => {
                     onChange={onPostChange}
                     className={s.text}
                     ref={newpostElement}
+                    placeholder="Enter you post text"
                     value={props.state.newPostText}/>
-                <UiButton onClick={addPost}>Add post</UiButton>
+                <UiButton onClick={onAddPost}>Add post</UiButton>
             </div>
             {postItem}
         </div>
