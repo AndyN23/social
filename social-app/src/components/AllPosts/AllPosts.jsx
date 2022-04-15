@@ -3,21 +3,22 @@ import s from './AllPosts.module.css'
 import UiButton from '../UI/UiButton/UiButton';
 import Post from './Post/Post'
 
+
 const AllPosts = (props) => {
 
     let newpostElement = React.createRef();
 
-    let addPost = () => {
-        props.dispatch({type:"ADD-POST"});
+    let onAddPost = () => {
+        props.addPost();
     }
-
+    
     let onPostChange=() => {
         let text = newpostElement.current.value;
-        props.dispatch({type: "UPDATE-POST" , newText: text});
+        props.updateNewPostText(text);
     }
 
-
-    let postItem = props.state.postsData.map(post => <Post message={post.message} likes={post.likes} dislikes={post.dislikes}></Post>)
+    let postItem = 
+        props.postsData.map(post => <Post message={post.message} likes={post.likes} dislikes={post.dislikes}/>)
 
     return (
         <div className={s.content}>
@@ -27,8 +28,9 @@ const AllPosts = (props) => {
                     onChange={onPostChange}
                     className={s.text}
                     ref={newpostElement}
-                    value={props.state.newPostText}/>
-                <UiButton onClick={addPost}>Add post</UiButton>
+                    placeholder="Enter you post text"
+                    value={props.newPostText}/>
+                <UiButton onClick={onAddPost}>Add post</UiButton>
             </div>
             {postItem}
         </div>

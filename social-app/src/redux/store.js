@@ -1,3 +1,6 @@
+import profileReducer from './profileReducer';
+import messageReducer from './messageReducer';
+
 let store = {
     _state : {
         messagePage: {
@@ -15,6 +18,7 @@ let store = {
                 { id:4, text: "What happend?!"},
                 { id:5, text: "Call me!"},
             ],
+            newMessageText: '',
         },
         profilePage: {
             postsData : [
@@ -22,42 +26,22 @@ let store = {
                 { id: 2, message: "My home", likes: "28", dislikes: "9" },
                 { id: 3, message: "It's my village - home", likes: "48", dislikes: "12" }
             ],
-            newPostText: 'new text'
+            newPostText: ''
         }
     },
     _callSubscriber () {
         console.log('Aloha!')
     },
-
     getState() {
         return this._state 
     },
     subscribe (observer) {
         this._callSubscriber = observer;
     },
-
     dispatch(action){ //action {type: 'ADD-POST' , data}
-        if(action.type === "ADD-POST"){
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likes: 0,
-                dislikes: 0
-            }
-            this._state.profilePage.postsData.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this._state);
-        } else if (action.type === "UPDATE-POST"){
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === "TEXT-MESSAGE") {
-            let newMessage = {
-                id: 4,
-                message: action.textMessage,
-            }
-            this._state.messagePage.messagesData.push(newMessage);
-            this._callSubscriber(this._state);
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagePage = messageReducer(this._state.messagePage, action);
+        this._callSubscriber(this._state);
     },
 }
 

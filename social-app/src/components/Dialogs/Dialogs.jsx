@@ -5,17 +5,22 @@ import Message from './Message/Message';
 import UiButton from '../UI/UiButton/UiButton';
 
 const Dialogs = (props) => {
-
-    let newMessage = React.createRef();
+    let state = props.messagePage;
 
     let addMessage = () => {
-        let message = newMessage.current.value;
-        props.addMessage(message);
+        props.sendMessage();
     }
 
-    let userItem = props.state.usersData.map( dialog => <Dialog name={dialog.name} id={dialog.id}/>);
+    let onMessageChange = (e) => {
+        let body = e.target.value;
+        props.updateMessageBody(body)
+    }
 
-    let messageItem = props.state.messagesData.map( message => <Message text={message.text}/>);
+    let userItem = 
+        state.usersData.map( dialog => <Dialog name={dialog.name} id={dialog.id}/>);
+        
+    let messageItem = 
+        state.messagesData.map( message => <Message text={message.text}/>);
 
     return (
         <div className={s.dialogs}>
@@ -24,7 +29,10 @@ const Dialogs = (props) => {
             </div>
             <div className={s.messages}>
                 {messageItem}
-                <textarea ref={newMessage}></textarea>
+                <textarea 
+                    onChange={onMessageChange}
+                    value={props.newMessageText}
+                    placeholder="Enter you message..."/>
                 <UiButton onClick={addMessage}>Submit</UiButton>
             </div>
         </div>
