@@ -3,24 +3,24 @@ import s from './Dialogs.module.css';
 import Dialog from './Dialog/Dialog';
 import Message from './Message/Message';
 import UiButton from '../UI/UiButton/UiButton';
-import { updateMessageCreator, sendMessageCreator } from '../../redux/messageReducer';
 
 const Dialogs = (props) => {
-
-    // let newMessage = React.createRef();
+    let state = props.messagePage;
 
     let addMessage = () => {
-        props.dispatch(sendMessageCreator());
+        props.sendMessage();
     }
 
     let onMessageChange = (e) => {
-        let text = e.target.value;
-        props.dispatch(updateMessageCreator(text));
+        let body = e.target.value;
+        props.updateMessageBody(body)
     }
 
-    let userItem = props.state.usersData.map( dialog => <Dialog name={dialog.name} id={dialog.id}/>);
-
-    let messageItem = props.state.messagesData.map( message => <Message text={message.text}/>);
+    let userItem = 
+        state.usersData.map( dialog => <Dialog name={dialog.name} id={dialog.id}/>);
+        
+    let messageItem = 
+        state.messagesData.map( message => <Message text={message.text}/>);
 
     return (
         <div className={s.dialogs}>
@@ -31,8 +31,7 @@ const Dialogs = (props) => {
                 {messageItem}
                 <textarea 
                     onChange={onMessageChange}
-                    // ref={newMessage}
-                    value={props.state.newMessageText}
+                    value={props.newMessageText}
                     placeholder="Enter you message..."/>
                 <UiButton onClick={addMessage}>Submit</UiButton>
             </div>

@@ -3,19 +3,24 @@ import { addPostActionCreator, updatePostActionCreator } from '../../redux/profi
 import AllPosts from './AllPosts';
 
 
-const AllPosts = (props) => {
+const AllPostsContainer = (props) => {
+    let state = props.store.getState();
+
     let addPost = () => {
-        props.dispatch(addPostActionCreator());
+        props.store.dispatch(addPostActionCreator());
     }
 
     let onPostChange=(text) => {
         let action = updatePostActionCreator(text);
-        props.dispatch(action);
+        props.store.dispatch(action);
     }
-
     return (
-        <AllPosts updateNewPostText={onPostChange} addPost={addPost}/>
+        <AllPosts 
+            updateNewPostText={onPostChange} 
+            addPost={addPost} 
+            postsData ={state.profilePage.postsData}
+            newPostText = {state.profilePage.newPostText}/>
     );
 };
 
-export default AllPosts;
+export default AllPostsContainer;
